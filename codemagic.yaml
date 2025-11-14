@@ -3,31 +3,19 @@ workflows:
     name: Build iOS .NET MAUI App
     environment:
       vars:
-        DOTNET_VERSION: "9.0.306"
-
+        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
       xcode: latest
-    scripts:
-      - name: Install .NET
-        script: |
-          wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
-          chmod +x dotnet-install.sh
-          ./dotnet-install.sh --version $DOTNET_VERSION
 
+    scripts:
       - name: Restore NuGet packages
-        script: |
-          dotnet restore DictionaryApp/DictionaryApp.csproj
+        script: dotnet restore DictionaryApp/DictionaryApp.csproj
 
       - name: Build and archive IPA
         script: |
           dotnet publish DictionaryApp/DictionaryApp.csproj \
-            -c Release -f net8.0-ios \
+            -c Release -f net9.0-ios \
             /p:ArchiveOnBuild=true \
             /p:BuildIpa=true
 
     artifacts:
-      - "DictionaryApp/bin/Release/net8.0-ios/ios-arm64/publish/*.ipa"
-
-    publishing:
-      email:
-        recipients:
-          - your-email@example.com
+      - "DictionaryApp/bin/Release/net9.0-ios/ios-arm64/publish/*.ipa"
