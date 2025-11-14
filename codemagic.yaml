@@ -3,7 +3,7 @@ workflows:
     name: Build iOS .NET MAUI App
     environment:
       vars:
-        DOTNET_VERSION: "8.0.100"
+        DOTNET_VERSION: "9.0.306"
 
       xcode: latest
     scripts:
