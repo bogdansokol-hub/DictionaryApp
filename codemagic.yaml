@@ -3,7 +3,7 @@ workflows:
     name: Build iOS .NET MAUI App
     environment:
       vars:
-        DOTNET_VERSION: "9.0.306"   
+        DOTNET_VERSION: "9.0.306"
         DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
       xcode: latest
     scripts:
@@ -17,11 +17,11 @@ workflows:
           export PATH=$DOTNET_ROOT:$PATH
           dotnet --version
 
-          echo "=== Restoring MAUI workloads for iOS ==="
+          echo "=== Installing MAUI iOS workload ==="
           dotnet workload install maui-ios
 
-          echo "=== Restoring NuGet packages only for iOS ==="
-          dotnet restore DictionaryApp/DictionaryApp.csproj -f net9.0-ios
+          echo "=== Restoring NuGet packages ==="
+          dotnet restore DictionaryApp/DictionaryApp.csproj
 
           echo "=== Building iOS .NET MAUI App ==="
           dotnet publish DictionaryApp/DictionaryApp.csproj \
